@@ -1,10 +1,4 @@
 # Firmware
+**[Open the actual Arduino sketch](RA_AI_ESP32S3_Gemini_FAST_SILENT_V6/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino).**
 
-Tested firmware for **ESP32-S3 AI Assistant** will be stored here.
-
-- Keep the main Arduino sketch in a clearly named project folder.
-- List every required library and tested version.
-- Keep Wi-Fi credentials and API keys in an ignored local configuration file.
-- Tag stable releases after hardware verification.
-
-Return to the [ESP32-S3 AI Assistant overview](../README.md).
+Download the whole repository so all companion headers remain beside the sketch. See [build steps](../docs/README.md) and [wiring](../hardware/README.md).

@@ -1,0 +1,9 @@
+secrets.h
+.env
+.venv/
+__pycache__/
+*.pyc
+build/
+*.bin
+*.elf
+.DS_Store

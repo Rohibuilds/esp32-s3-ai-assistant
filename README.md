@@ -1,75 +1,29 @@
-<div align="center">
-
 # ESP32-S3 AI Assistant
+**Rohi | RA TECH** · Robotics, electronics and embedded systems
 
-**Voice-enabled ESP32-S3 assistant with I2S audio, cloud AI integration and an optimized interaction workflow.**
+Push-button voice assistant using an INMP441 microphone, Gemini transcription and answers, and streamed speech through a MAX98357A.
 
-![Status](https://img.shields.io/badge/status-prototype_iteration-F0A44B?style=flat-square)
-![Platform](https://img.shields.io/badge/platform-ESP32-S3-101820?style=flat-square)
-![Brand](https://img.shields.io/badge/by-RA_TECH-101820?style=flat-square)
+**[Open the complete code](firmware/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino) · [Wiring and parts](hardware/README.md) · [How to build](docs/README.md)**
 
-</div>
+## What is included
+2.5-second voice recording, strict transcription before answering, short conversation history, OLED/WS2812 states and muted I2S transitions.
 
-## Overview
+This repository restores the previously delivered project source and repairs identified software issues. It is a hardware prototype; source restoration does not constitute a new hardware test.
 
-A compact voice-assistant prototype built around the ESP32-S3. The system records speech through an I2S microphone, sends it to a cloud AI workflow, and plays the response through a speaker amplifier. The project focuses on fast interaction, dependable audio capture, and reducing switching noise.
+## Get started
+1. Download the repository using **Code → Download ZIP** and extract it.
+2. Read the [wiring table](hardware/README.md); it retains the recovered pin map.
+3. Follow the [build and configuration guide](docs/README.md).
+4. Open `firmware/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino` in Arduino IDE. Keep the containing folder and companion headers together.
 
-> **Project status:** Prototype validated · documentation in progress
+## Code and validation
+- Main source: [RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino](firmware/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino)
+- [Dependency versions](DEPENDENCIES.md)
+- [Fixes and validation record](docs/VALIDATION.md)
+- [Build workflow](.github/workflows/build.yml) / [live build results](https://github.com/Rohibuilds/esp32-s3-ai-assistant/actions)
 
-## Highlights
+## Source provenance
+Recovered from the earlier RA TECH deliverables `RA_AI_ESP32S3_Gemini_FAST_SILENT_V6.ino and RA_AI_ESP32S3_Complete_Wiring_Guide.pdf`. The wiring was cross-checked against those files. This update preserves the project's original purpose and identifies later repairs separately.
 
-- Push-to-talk voice interaction
-- I2S microphone capture with RMS and clipping diagnostics
-- Cloud speech and AI response workflow
-- Amplified speaker output
-- Latency and noise-reduction tuning
-- Serial diagnostics for rapid troubleshooting
-
-## Hardware
-
-| Component | Role |
-|---|---|
-| ESP32-S3 development board | Main processing and control |
-| I2S digital microphone | Project subsystem |
-| Audio amplifier and speaker | Project subsystem |
-| Momentary push button | Project subsystem |
-| Stable regulated power supply | Project subsystem |
-
-## Repository structure
-
-```text
-esp32-s3-ai-assistant/
-├── firmware/   Tested source code and configuration notes
-├── hardware/   Wiring, components, PCB, and enclosure information
-├── docs/       Build guide, calibration, results, and troubleshooting
-├── media/      Prototype images, diagrams, and demo links
-└── README.md   Project overview and release status
-```
-
-## Current public release
-
-This initial release establishes the verified project overview and a clean documentation structure. Firmware, wiring diagrams, and media will be added only after each item is checked for accuracy and private credentials are removed.
-
-## Roadmap
-
-- [ ] Publish the final tested firmware
-- [ ] Add the exact pin map and audio wiring diagram
-- [ ] Document noise-suppression hardware changes
-- [ ] Add example questions and a demo video
-
-## Safety and reproducibility
-
-- Verify every supply voltage before powering the controller or modules.
-- Use a common ground and a power source sized for peak motor or audio current.
-- Never commit Wi-Fi passwords, API keys, personal contact details, or certificates.
-- Recheck the published pin map against the tested hardware before assembly.
-
----
-
-<div align="center">
-
-**Designed and developed by [Rohi · RA TECH](https://github.com/Rohibuilds)**
-
-<sub>Build. Test. Improve. Share.</sub>
-
-</div>
+## Recent repairs
+Moved credentials to an ignored configuration file; enabled TLS certificate verification and clock sync; corrected the Interactions JSON schema format; bounded microphone, playback and response loops; parsed TTS events as JSON; preserved PCM samples across odd-byte chunk boundaries; muted the amplifier on error paths.

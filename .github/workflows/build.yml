@@ -1,0 +1,20 @@
+name: Compile firmware
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+        with:
+          version: '1.2.2'
+      - name: Install pinned board and libraries
+        run: |
+          arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli core install esp32:esp32@3.3.0 --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          arduino-cli lib install "Adafruit GFX Library@1.11.11" "Adafruit SSD1306@2.5.13" "Adafruit NeoPixel@1.12.3" "ArduinoJson@7.3.0"
+      - name: Compile the original board target
+        run: arduino-cli compile --warnings all --fqbn 'esp32:esp32:esp32s3:PartitionScheme=huge_app' 'firmware/RA_AI_ESP32S3_Gemini_FAST_SILENT_V6'
