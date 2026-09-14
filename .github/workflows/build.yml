@@ -7,10 +7,22 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: arduino/setup-arduino-cli@v2
-        with:
-          version: '1.2.2'
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Install Arduino CLI 1.2.2
+        shell: bash
+        run: |
+          set -euo pipefail
+          cli_dir="${RUNNER_TEMP}/arduino-cli-1.2.2"
+          mkdir -p "$cli_dir/bin"
+          cd "$cli_dir"
+          curl --fail --location --retry 3 --output arduino-cli_1.2.2_Linux_64bit.tar.gz \
+            https://github.com/arduino/arduino-cli/releases/download/v1.2.2/arduino-cli_1.2.2_Linux_64bit.tar.gz
+          curl --fail --location --retry 3 --output 1.2.2-checksums.txt \
+            https://github.com/arduino/arduino-cli/releases/download/v1.2.2/1.2.2-checksums.txt
+          sha256sum --check --ignore-missing 1.2.2-checksums.txt
+          tar -xzf arduino-cli_1.2.2_Linux_64bit.tar.gz -C "$cli_dir/bin" arduino-cli
+          echo "$cli_dir/bin" >> "$GITHUB_PATH"
+          "$cli_dir/bin/arduino-cli" version
       - name: Install pinned board and libraries
         run: |
           arduino-cli core update-index --additional-urls https://espressif.github.io/arduino-esp32/package_esp32_index.json
